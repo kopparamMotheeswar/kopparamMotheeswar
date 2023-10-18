@@ -1,16 +1,21 @@
-### Hi there 👋
 
-<!--
-**kopparamMotheeswar/kopparamMotheeswar** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+import feedparser
 
-Here are some ideas to get you started:
+feed_url = input('Input the URL of the feed: ')
+fp = feedparser.parse(feed_url)
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+try:
+    print(fp['feed']['title'])
+except KeyError as e:
+    print('Error parsing feed title. Double check the feed URL')
+
+try:
+    for entry in fp.entries:
+        print()
+        print(f'** {entry.title} **')
+        print(entry.description)
+        print(entry.link)
+        print('*****')
+        print()
+except KeyError as e:
+    print('Error parsing entries. Double check the feed URL')
